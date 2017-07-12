@@ -1,4 +1,5 @@
-'use sitrict';                                                                                                     
+'use sitrict';
+                                                                                               
 var https = require('https');
 var url = require('url');
 var EventEmitter = require('events').EventEmitter;
