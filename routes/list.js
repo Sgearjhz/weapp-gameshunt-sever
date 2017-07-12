@@ -1,7 +1,7 @@
-'use sitrict';                                                                                                     
+'use sitrict';
+
 var connection = require('./sql');
-var url = require('url');                                                                                          
-var util = require('util');                                                                                        
+var url = require('url');                                                                                       
 var EventEmitter = require('events').EventEmitter;                                                                 
 var resevent = new EventEmitter();
 
@@ -18,9 +18,6 @@ module.exports = (req, res) => {
   var params = url.parse(req.url, true).query;
   if (params.page !== undefined) {
     var num = (parseInt(params.page) - 1) * 10;
-    resevent.on('end', function() {
-      res.end(JSON.stringify(result));
-    });
     res.writeHead(200, {'Content-Type': 'application/json;charset=utf-8'});
     //----------------------------根据地区查询不同数据库，列出10个游戏----------------------------//
     var sql = 'SELECT * FROM '+params.region+' ORDER BY '+params.ob+' '+params.order+' LIMIT '+num+','+10;
