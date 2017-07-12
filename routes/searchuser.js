@@ -20,6 +20,7 @@ module.exports = (req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json;charset=utf-8'});
     //------------------------从user库查询玩家psnid-----------------------//
     if (params.psnid == 'random')
+      //------------随机搜索保证玩家至少玩过8个游戏------------//
       var sql = "SELECT * FROM user WHERE game8 IS NOT NULL AND game8 != '' ORDER BY RAND() LIMIT 1";
     else
       var sql = "SELECT * FROM user WHERE psnid='"+params.psnid+"'";
