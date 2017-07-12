@@ -8,7 +8,7 @@ var resevent = new EventEmitter();
 var json = {"datas":[]}
 var result = {}
 
-//请求格式：https://{{host}}/searchname?region=*&name=*
+//请求格式：https://{{host}}/searchname?region=*&name=*&page=*
 
 module.exports = (req, res) => {
   //------------end事件--------------//
@@ -17,9 +17,10 @@ module.exports = (req, res) => {
   });
   var params = url.parse(req.url, true).query;
   if (params.name !== undefined) {
+    var num = (parseInt(params.page) - 1) * 10;
     res.writeHead(200, {'Content-Type': 'application/json;charset=utf-8'});
     //-----------------------根据地区查询不同数据库，模糊查询游戏名称-----------------------//
-    var sql = "SELECT * FROM "+params.region+" WHERE name LIKE '%"+params.name+"%'";
+    var sql = "SELECT * FROM "+params.region+" WHERE name LIKE '%"+params.name+"%'"+' LIMIT '+num+','+10;
     connection.query(sql, function (err, res) {
       if (err) {
         console.log('[SELECT ERROR] - ',err.message);
